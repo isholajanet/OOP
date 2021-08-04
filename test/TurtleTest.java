@@ -88,7 +88,7 @@ public class TurtleTest {
     void turtle_canMove_EastWard_WhenPenIsUp(){
         int numberOfStep = 7;
         turtle.move(sketchPad, numberOfStep);
-        assertEquals(new TurtlePosition(0, 7), turtle.getCurrentTurtlePosition());
+        assertEquals(new SketchPadPosition(0, 7), turtle.getCurrentSketchPadPosition());
     }
 
     @Test
@@ -96,24 +96,18 @@ public class TurtleTest {
         int numberOfStep = 7;
         turtle.setDirection(Direction.SOUTH);
         turtle.move(sketchPad, numberOfStep);
-        assertEquals(new TurtlePosition(7, 0), turtle.getCurrentTurtlePosition());
+        assertEquals(new SketchPadPosition(7, 0), turtle.getCurrentSketchPadPosition());
     }
 
     @Test
     void turtle_canMove_NorthWard_WhenPenIsUp(){
         int numberOfStep = 7;
+        turtle.setCurrentSketchPadPosition(new SketchPadPosition(7, 0));
+        turtle.setDirection(Direction.NORTH);
+
         turtle.move(sketchPad, numberOfStep);
 
-        turtle.turnRight();
-        turtle.move(sketchPad,numberOfStep);
-
-        turtle.turnRight();
-        turtle.move(sketchPad, numberOfStep);
-
-        turtle.turnRight();
-        turtle.move(sketchPad, numberOfStep);
-
-        assertEquals(new TurtlePosition(0, 7), turtle.getCurrentTurtlePosition());
+        assertEquals(new SketchPadPosition(0, 0), turtle.getCurrentSketchPadPosition());
     }
 
 }

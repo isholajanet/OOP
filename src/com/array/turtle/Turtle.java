@@ -1,7 +1,5 @@
 package com.array.turtle;
 
-import java.util.Arrays;
-
 public class Turtle {
 
     private Pen pen;
@@ -35,20 +33,19 @@ public class Turtle {
     }
 
     public void turnRight() {
-        switch (direction){
-            case EAST -> setDirection(Direction.SOUTH);
-            case WEST -> setDirection(Direction.NORTH);
-            case SOUTH-> setDirection(Direction.WEST);
-            case NORTH -> setDirection(Direction.EAST);
-        }
+        updateCurrentDirection(Direction.SOUTH, Direction.NORTH, Direction.WEST, Direction.EAST);
     }
 
     public void turnLeft() {
-        switch (direction){
-            case EAST -> setDirection(Direction.NORTH);
-            case WEST -> setDirection(Direction.SOUTH);
-            case SOUTH-> setDirection(Direction.EAST);
-            case NORTH -> setDirection(Direction.WEST);
+        updateCurrentDirection(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+    }
+
+    private void updateCurrentDirection(Direction south, Direction north, Direction west, Direction east) {
+        switch (direction) {
+            case EAST -> setDirection(south);
+            case WEST -> setDirection(north);
+            case SOUTH -> setDirection(west);
+            case NORTH -> setDirection(east);
         }
     }
 
@@ -78,13 +75,7 @@ public class Turtle {
          */
 
         if (getPen().getPenPosition().equals(PenPosition.PEN_UP)){
-            switch (direction){
-                case EAST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition + numberOfStep);
-                case SOUTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition + numberOfStep);
-                case NORTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition - numberOfStep);
-                case WEST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition - numberOfStep);
-
-            }
+            updateCurrentSketchPadPosition(numberOfStep, currentColumnPosition, currentRowPosition);
         }
 
 
@@ -96,6 +87,15 @@ public class Turtle {
 //            case SOUTH -> currentSketchPadPosition.setNumberOfRow(rowPosition + numberOfStep);
 //            case NORTH -> currentSketchPadPosition.setNumberOfRow(rowPosition - columnPosition);
 //        }
+    }
+
+    private void updateCurrentSketchPadPosition(int numberOfStep, int currentColumnPosition, int currentRowPosition) {
+        switch (direction){
+            case EAST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition + numberOfStep);
+            case SOUTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition + numberOfStep);
+            case NORTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition - numberOfStep);
+            case WEST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition - numberOfStep);
+        }
     }
 
 }

@@ -11,6 +11,18 @@ public class SketchPad {
        board = new int[this.numberOfRow][this.numberOfColumn]; // Instantiate object with instance variable in case any update
     }
 
+    public String displaySketch(){
+        StringBuilder builder = new StringBuilder();
+        for (int [] row : board) {
+            for (int column : row){
+                if (column == 1)builder.append("* ");
+                else builder.append("  ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
     public int[][] getBoard() {
         return board;
     }

@@ -110,4 +110,29 @@ public class TurtleTest {
         assertEquals(new SketchPadPosition(0, 0), turtle.getCurrentSketchPadPosition());
     }
 
+    @Test
+    void turtle_canDraw_whileFacing_Eastward(){
+        int numberOfStep = 7;
+        turtle.getPen().setPenPosition(PenPosition.PEN_DOWN);
+        turtle.move(sketchPad, numberOfStep);
+
+        for (int column = 0; column < numberOfStep; column++){
+            int expected = sketchPad.getBoard()[0][column];
+            assertEquals(expected, 1);
+        }
+        assertEquals(new SketchPadPosition(0, 7), turtle.getCurrentSketchPadPosition());
+
+        turtle.turnRight();
+        turtle.move(sketchPad, numberOfStep);
+
+        System.out.println(sketchPad.displaySketch());
+        for (int row = 0; row < numberOfStep; row++){
+            int expected = sketchPad.getBoard()[row][0];
+            assertEquals(expected, 1);
+        }
+
+
+        assertEquals(new SketchPadPosition(7, 0), turtle.getCurrentSketchPadPosition());
+    }
+
 }

@@ -75,27 +75,34 @@ public class Turtle {
          */
 
         if (getPen().getPenPosition().equals(PenPosition.PEN_UP)){
-            updateCurrentSketchPadPosition(numberOfStep, currentColumnPosition, currentRowPosition);
+            switch (direction){
+                case EAST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition + numberOfStep);
+                case SOUTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition + numberOfStep);
+                case NORTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition - numberOfStep);
+                case WEST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition - numberOfStep);
+            }
         }
 
+        if(getPen().getPenPosition().equals(PenPosition.PEN_DOWN)){
+            switch (direction){
+                case EAST -> {
+                    while (currentColumnPosition < numberOfStep){
+                        pad[currentRowPosition][currentColumnPosition] = 1;
+                        currentColumnPosition++;
+                    }
+                    currentSketchPadPosition.setNumberOfColumn(currentColumnPosition);
+                }
 
-//        int columnPosition = currentSketchPadPosition.getNumberOfColumn();
-//        int rowPosition = currentSketchPadPosition.getNumberOfRow();
-//
-//        switch(direction){
-//            case EAST -> currentSketchPadPosition.setNumberOfColumn(columnPosition + numberOfStep);
-//            case SOUTH -> currentSketchPadPosition.setNumberOfRow(rowPosition + numberOfStep);
-//            case NORTH -> currentSketchPadPosition.setNumberOfRow(rowPosition - columnPosition);
-//        }
-    }
-
-    private void updateCurrentSketchPadPosition(int numberOfStep, int currentColumnPosition, int currentRowPosition) {
-        switch (direction){
-            case EAST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition + numberOfStep);
-            case SOUTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition + numberOfStep);
-            case NORTH -> currentSketchPadPosition.setNumberOfRow(currentRowPosition - numberOfStep);
-            case WEST -> currentSketchPadPosition.setNumberOfColumn(currentColumnPosition - numberOfStep);
+                case SOUTH -> {
+                    while (currentRowPosition < numberOfStep){
+                        pad[currentRowPosition][currentColumnPosition] = 1;
+                        currentRowPosition++;
+                    }
+                    currentSketchPadPosition.setNumberOfColumn(currentRowPosition);
+                }
+            }
         }
     }
+
 
 }
